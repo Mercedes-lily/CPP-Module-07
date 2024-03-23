@@ -1,4 +1,4 @@
-NAME = whatever
+NAME = Iter
 
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98 #-fsanitize=address
@@ -12,7 +12,7 @@ VPATH = $(OBJ_DIR)
 OBJS = $(SRCS:%.cpp=%.o)
 OBJ_PRE = $(addprefix $(OBJ_DIR), $(OBJS))
 
-DEP = whatever.hpp
+DEP = iter.hpp
 
 all: $(NAME)
 
