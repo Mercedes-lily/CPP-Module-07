@@ -12,11 +12,13 @@ class Array
 		Array<T>(void)
 		{
 			std::cout << "default constructor" << std::endl;
+			this->sizeArray = 1;
 			data = new T;
 		}
 		Array<T>(unsigned int n)
 		{
 			std::cout << "unsigned int constructor" << std::endl;
+			this->sizeArray = n;
 			data = new T[n];
 		}
 		Array<T>(const Array<T> &src)
@@ -36,31 +38,23 @@ class Array
 		}
 		const T &operator[](unsigned int index) const
 		{
+			if(index >= this->sizeArray || index < 0)
+				throw(std::out_of_range("Out of Range"));
 			return(this->data[index]);
 		}
 		T &operator[](unsigned int index)
 		{
+			if(index >= this->sizeArray || index < 0)
+				throw(std::out_of_range("Out of Range"));
 			return(this->data[index]);
 		}
 		unsigned int size(void)
 		{
-			int i = 0;
-			try
-			{
-				while(this->data[i])  // ca va trop loin
-				{
-					std::cout << i << std::endl;
-					i++;
-				}
-			}
-			catch (const std::out_of_range &oor)
-			{
-				std::cout << "a";
-			}
-			return(i);
+			return(this->sizeArray);
 		}
 	private:
 		T* data;
+		unsigned int sizeArray;
 };
 
 #endif
