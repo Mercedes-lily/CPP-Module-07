@@ -2,10 +2,13 @@
 
 int main()
 {	
-	Array<char> chararray;
+    
+    Array<char> chararray;
+    Array<char> chararray2(chararray);
 	Array<unsigned int> unsignedArray(22);
-    unsignedArray[2] = 1;
-    chararray[0] = 'c';
+    Array<unsigned int> unsignedArray2 = unsignedArray;
+    std::cout << chararray.size() << std::endl;
+    std::cout << unsignedArray.size() << std::endl;
     try
     {
         unsignedArray[22] = 22;
@@ -14,17 +17,31 @@ int main()
     {
         std::cout << oor.what() << std::endl;
     }
-    std::cout << unsignedArray.size() << std::endl;
-    std::cout << chararray.size() << std::endl;
-    //unsignedArray[22] = 12; faire le try catch
-    std ::cout << unsignedArray[2] << std::endl;
-    std ::cout << chararray[0] << std::endl;
+    try
+    {
+        unsignedArray[-1] = 22;
+    }
+    catch(std::out_of_range & oor)
+    {
+        std::cout << oor.what() << std::endl;
+    }
+    try
+    {
+        unsignedArray[1] = 22;
+        std::cout << unsignedArray[1] << std::endl;
+        std::cout << unsignedArray2[1] << std::endl;
+    }
+    catch(std::out_of_range & oor)
+    {
+        std::cout << oor.what() << std::endl;
+    }
 }
 
-/* Main inclus dans la page du projet 
+//Main inclus dans la page du projet 
 
+/*
 #include <iostream>
-#include <Array.hpp>
+#include "Array.hpp"
 
 #define MAX_VAL 750
 int main(int, char**)
@@ -76,5 +93,4 @@ int main(int, char**)
     delete [] mirror;//
     return 0;
 }
-
 */

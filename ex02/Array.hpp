@@ -9,52 +9,65 @@ template < typename T >
 class Array
 {
 	public:
-		Array<T>(void)
+		Array<T>(void) : _size(0)  //ok
 		{
-			std::cout << "default constructor" << std::endl;
-			this->sizeArray = 1;
-			data = new T;
+			this->_data = new T[this->_size];
 		}
-		Array<T>(unsigned int n)
+
+		Array<T>(unsigned int n) : _size (n)  //ok
 		{
-			std::cout << "unsigned int constructor" << std::endl;
-			this->sizeArray = n;
-			data = new T[n];
+			T * a = new T();
+			this->_data = new T[n];
+			for(unsigned int i = 0; i < n; i++)
+				this->_data[i] = *a;
+			delete a;
 		}
+
 		Array<T>(const Array<T> &src)
 		{
-			this->data = new T;
-			for (int i = 0; src[i]; i++)
-				this->data[i] = src.data[i];
+			this->_size = src.size();
+			this->_data = new T[this->_size];
+			for(unsigned int i = 0; i < this->_size; i ++)
+				this->_data[i] = src._data[i];
 		}
+
 		Array<T> &operator=(const Array<T> &src) // deep copy
 		{
-			(void) src;
+			delete this->_data;
+			this->_size = src.size();
+			this->_data = new T[this->_size];
+			for(unsigned int i = 0; i < this->_size; i ++)
+				this->_data[i] = src._data[i];
+			return *this;
 		}
-		~Array<T>(void)
+
+		~Array<T>(void)  //ok
 		{
-			std::cout << "destructor" << std::endl;
-			delete this->data;
+			delete [] this->_data;
 		}
-		const T &operator[](unsigned int index) const
+
+		const T &operator[](unsigned int index) const  //ok
 		{
-			if(index >= this->sizeArray || index < 0)
+			if(index >= this->_size || index < 0)
 				throw(std::out_of_range("Out of Range"));
-			return(this->data[index]);
+			return(this->_data[index]);
 		}
-		T &operator[](unsigned int index)
+
+		T &operator[](unsigned int index) //ok
 		{
-			if(index >= this->sizeArray || index < 0)
+			if(index >= this->_size || index < 0)
 				throw(std::out_of_range("Out of Range"));
-			return(this->data[index]);
+			return(this->_data[index]);
 		}
-		unsigned int size(void)
+
+		unsigned int size(void) const //ok
 		{
-			return(this->sizeArray);
+			return(this->_size);
 		}
+
 	private:
-		T* data;
-		unsigned int sizeArray;
+		T* _data;
+		unsigned int _size;
 };
 
 #endif
